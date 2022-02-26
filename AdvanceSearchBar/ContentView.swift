@@ -21,14 +21,15 @@ struct ContentView: View {
     }
     
     enum OperatioinValue: String {
-        case BEGINSWITH
-        case CONTAINS
-        case LIKE
+        case BEGINSWITH = "BEGINSWITH[c]"
+        case CONTAINS = "CONTAINS[c]"
+        case LIKE = "LIKE[c]"
     }
     
     @State private var keyValue: KeyValue = .firstName
     @State private var operationValue: OperatioinValue = .BEGINSWITH
     
+ 
     
     
     var body: some View {
@@ -41,13 +42,15 @@ struct ContentView: View {
                     .tag(KeyValue.lastName)
             }
             .pickerStyle(.segmented)
+            .padding()
             
             Picker("OperationValue", selection: $operationValue) {
-                Text("Biginswith").tag(OperatioinValue.BEGINSWITH)
+                Text("BeginsWfith").tag(OperatioinValue.BEGINSWITH)
                 Text("Contains").tag(OperatioinValue.CONTAINS)
                 Text("Like").tag(OperatioinValue.LIKE)
             }
             .pickerStyle(.segmented)
+            .padding()
             
             HStack {
                 VStack {
@@ -59,6 +62,8 @@ struct ContentView: View {
                     singer.firstName = firstName
                     singer.lastName = lastName
                     try? moc.save()
+                    self.firstName = ""
+                    self.lastName = ""
                 } label: {
                     Text("Add")
                         .padding()
@@ -72,6 +77,8 @@ struct ContentView: View {
             .padding()
             
             TextField("Singer here", text: $searchText)
+                .textInputAutocapitalization(.never)
+                .padding()
             
             
             ScrollView {
@@ -81,6 +88,7 @@ struct ContentView: View {
                     }
                 } else {
                     SearchResult(keyValue: keyValue.rawValue, operation: operationValue.rawValue, searchText: searchText)
+        //            SearchResult(searchText: searchText)
                 }
             }
         }

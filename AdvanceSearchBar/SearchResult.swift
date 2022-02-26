@@ -14,9 +14,18 @@ struct SearchResult: View {
 //    init(searchText: String) {
 //        _fetchRequest = FetchRequest<Singer>(sortDescriptors: [], predicate: NSPredicate(format: "firstName BEGINSWITH %@", searchText))
 //    }
+    
     init(keyValue: String, operation: String, searchText: String) {
         _fetchRequest = FetchRequest<Singer>(sortDescriptors: [], predicate: NSPredicate(format: "%K \(operation) %@", keyValue, searchText))
     }
+    
+//    init(searchText: String) {
+//        var predicate1 = NSPredicate(format: "firstName CONTAINS[c] %@", searchText)
+//        var predicate2 = NSPredicate(format: "lastName CONTAINS[c] %@", searchText)
+//
+//        _fetchRequest = FetchRequest<Singer>(sortDescriptors: [], predicate: NSCompoundPredicate(orPredicateWithSubpredicates: [predicate1, predicate2]))
+//    }
+    
     
     var body: some View {
         ForEach(fetchRequest, id: \.self) { singer in
